@@ -1,0 +1,20 @@
+[
+  {
+    "file": "test.docx",
+    "type": "docx",
+    "characters": 92689,
+    "chunks": 93
+  },
+  {
+    "file": "test.pptx",
+    "type": "pptx",
+    "characters": 26521,
+    "chunks": 27
+  },
+  {
+    "file": "incentives.pdf",
+    "type": "pdf",
+    "characters": 108724,
+    "chunks": 109
+  }
+]
