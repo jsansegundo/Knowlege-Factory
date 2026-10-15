@@ -18,3 +18,7 @@ backup/
 
 # VS Code
 .vscode/
+
+# Local backup files
+*.backup.py
+*.backup.docx
