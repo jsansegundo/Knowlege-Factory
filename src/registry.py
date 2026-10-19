@@ -205,6 +205,7 @@ def update_document(
     )
 
     document["status"] = "pending_index"
+    document["indexed_at"] = None
     document["detected_at"] = detected_at
 
     registry["last_update"] = detected_at
