@@ -8,6 +8,51 @@ from datetime import datetime, UTC
 REGISTRY_FILE = "manifests/registry.json"
 
 
+REQUIRED_METADATA_FIELDS = (
+    "source_authority",
+    "program",
+    "document_role",
+    "canonical_status",
+)
+
+
+ALLOWED_METADATA_VALUES = {
+    "source_authority": {
+        "microsoft_program",
+        "microsoft_product",
+        "seidor_adaptation",
+        "internal_working",
+    },
+    "program": {
+        "Frontier Accelerate",
+        "Zero Trust",
+        "DSEW",
+        "CSEW",
+        "MSOEW",
+        "TPEW",
+        "Incentives",
+    },
+    "document_role": {
+        "Engagement Guide",
+        "Master Guide",
+        "Module Guide",
+        "Deck",
+        "FAQ",
+        "Workbook",
+        "Template",
+        "Changelog",
+    },
+    "canonical_status": {
+        "canonical",
+        "subordinate",
+        "derived",
+        "sample",
+        "legacy",
+        "pending-validation",
+    },
+}
+
+
 def load_registry():
 
     registry_path = Path(
@@ -28,7 +73,20 @@ def load_registry():
         encoding="utf-8"
     ) as f:
 
-        return json.load(f)
+        registry = json.load(f)
+
+    # Compatibilidad con documentos registrados
+    # antes de incorporar los metadatos.
+    for document in registry.get(
+        "documents",
+        []
+    ):
+        document.setdefault(
+            "metadata",
+            None
+        )
+
+    return registry
 
 
 def save_registry(
@@ -85,6 +143,74 @@ def get_document(
     return None
 
 
+def validate_document_metadata(
+    metadata
+):
+
+    if not isinstance(
+        metadata,
+        dict
+    ):
+        raise ValueError(
+            "metadata must be a dictionary"
+        )
+
+    for field in REQUIRED_METADATA_FIELDS:
+
+        if (
+            field not in metadata
+            or metadata[field] is None
+            or metadata[field] == ""
+        ):
+            raise ValueError(
+                "Missing required metadata "
+                f"field: {field}"
+            )
+
+        allowed_values = (
+            ALLOWED_METADATA_VALUES[field]
+        )
+
+        if (
+            metadata[field]
+            not in allowed_values
+        ):
+            raise ValueError(
+                "Invalid value for metadata "
+                f"field {field}: "
+                f"{metadata[field]!r}"
+            )
+
+    return True
+
+
+def set_document_metadata(
+    registry,
+    file_name,
+    metadata
+):
+
+    document = get_document(
+        registry,
+        file_name
+    )
+
+    if document is None:
+        return False
+
+    validate_document_metadata(
+        metadata
+    )
+
+    # Se almacena una copia para evitar que
+    # cambios externos modifiquen el Registry.
+    document["metadata"] = dict(
+        metadata
+    )
+
+    return True
+
+
 def register_document(
     registry,
     file_name,
@@ -119,7 +245,9 @@ def register_document(
 
         "detected_at": detected_at,
 
-        "indexed_at": None
+        "indexed_at": None,
+
+        "metadata": None
     }
 
     registry["documents"].append(
@@ -207,6 +335,13 @@ def update_document(
     document["status"] = "pending_index"
     document["indexed_at"] = None
     document["detected_at"] = detected_at
+
+    # Los documentos antiguos pueden no
+    # disponer todavía de esta propiedad.
+    document.setdefault(
+        "metadata",
+        None
+    )
 
     registry["last_update"] = detected_at
 
