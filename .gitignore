@@ -27,3 +27,4 @@ backup/
 manifests/all_chunks.json
 manifests/manifest.json
 manifests/registry.json
+backups/
