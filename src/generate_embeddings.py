@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from openai import OpenAI
+from openai_client import create_openai_client
 from pypdf import PdfReader
 import numpy as np
 import faiss
@@ -8,10 +8,7 @@ import json
 
 load_dotenv()
 
-client = OpenAI(
-    base_url=os.getenv("AZURE_OPENAI_ENDPOINT"),
-    api_key=os.getenv("AZURE_OPENAI_API_KEY")
-)
+client = create_openai_client()
 
 reader = PdfReader("data/incentives.pdf")
 

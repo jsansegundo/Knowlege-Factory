@@ -1,12 +1,12 @@
 from pathlib import Path
 from dotenv import load_dotenv
-from openai import OpenAI
 
 import os
 import json
 import numpy as np
 import faiss
 
+from openai_client import create_openai_client
 from registry import (
     load_registry,
     save_registry,
@@ -493,14 +493,7 @@ def main():
         f"{len(cached_chunk_ids)}"
     )
 
-    client = OpenAI(
-        base_url=os.getenv(
-            "AZURE_OPENAI_ENDPOINT"
-        ),
-        api_key=os.getenv(
-            "AZURE_OPENAI_API_KEY"
-        )
-    )
+    client = create_openai_client()
 
     print()
     print(

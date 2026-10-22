@@ -1,7 +1,7 @@
 from pathlib import Path
 from math import isfinite
 from dotenv import load_dotenv
-from openai import OpenAI
+from openai_client import create_openai_client
 import os
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -20,10 +20,7 @@ def required_env(name):
 endpoint = required_env("AZURE_OPENAI_ENDPOINT").rstrip("/") + "/"
 deployment = required_env("AZURE_EMBEDDING_DEPLOYMENT")
 
-client = OpenAI(
-    base_url=endpoint,
-    api_key=required_env("AZURE_OPENAI_API_KEY"),
-)
+client = create_openai_client()
 
 response = client.embeddings.create(
     model=deployment,

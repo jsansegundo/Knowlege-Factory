@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from openai import OpenAI
+from openai_client import create_openai_client
 import os
 import faiss
 import json
@@ -7,10 +7,7 @@ import numpy as np
 
 load_dotenv()
 
-client = OpenAI(
-    base_url=os.getenv("AZURE_OPENAI_ENDPOINT"),
-    api_key=os.getenv("AZURE_OPENAI_API_KEY")
-)
+client = create_openai_client()
 
 print("Cargando índice...")
 
