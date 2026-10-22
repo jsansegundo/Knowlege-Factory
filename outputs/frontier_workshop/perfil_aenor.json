@@ -1,0 +1,11 @@
+{
+  "client": "Aenor",
+  "domain": "7 - Protección del dato",
+  "domain_queries": [
+    "proteccion del dato, clasificacion y etiquetado de informacion",
+    "data protection, sensitivity labels, DLP and data loss prevention configuration",
+    "Microsoft Purview information protection and data governance",
+    "evidence collection and findings for data protection assessment",
+    "data protection module steps, prerequisites and deliverables"
+  ]
+}
