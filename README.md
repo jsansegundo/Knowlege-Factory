@@ -13,6 +13,7 @@ Documents -> Registry -> Loaders -> Document Model -> Chunker -> Embeddings -> F
 - PDF
 - DOCX
 - PPTX
+- XLSX (cada hoja se indexa con su nombre)
 
 ## Componentes
 
@@ -26,6 +27,7 @@ Documents -> Registry -> Loaders -> Document Model -> Chunker -> Embeddings -> F
 - `src/loaders/pdf_loader.py`
 - `src/loaders/docx_loader.py`
 - `src/loaders/pptx_loader.py`
+- `src/loaders/xlsx_loader.py`
 - `src/loaders/loader_factory.py`
 
 ### Indexación
@@ -82,6 +84,23 @@ Si los manifiestos no existen, el flujo los crea durante la ejecución.
 
 - GPT-5 Mini
 - `text-embedding-3-small`
+
+## Instalación
+
+Requiere Python 3.12. Desde la raíz del proyecto:
+
+```bash
+python -m venv .venv
+.venv/bin/pip install -r requirements.txt
+```
+
+Para instalar `src/` como paquete (dependencias y módulos declarados en `pyproject.toml`):
+
+```bash
+.venv/bin/pip install .
+```
+
+La instalación del paquete descarga `setuptools` en un entorno aislado. Las variables de Azure se leen de `.env`: `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_API_KEY`, `AZURE_OPENAI_DEPLOYMENT` y `AZURE_EMBEDDING_DEPLOYMENT`.
 
 ## Tests
 
