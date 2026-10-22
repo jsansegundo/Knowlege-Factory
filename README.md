@@ -82,3 +82,13 @@ Si los manifiestos no existen, el flujo los crea durante la ejecución.
 
 - GPT-5 Mini
 - `text-embedding-3-small`
+
+## Tests
+
+Ejecutar la suite desde la raíz del proyecto:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_*.py' -v
+```
+
+`PYTHONPATH=src` es necesario porque los tests importan los módulos de `src/` directamente.
