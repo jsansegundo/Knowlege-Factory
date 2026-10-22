@@ -18,7 +18,8 @@ MANIFEST_FILE = Path(
 SUPPORTED_EXTENSIONS = {
     ".pdf",
     ".docx",
-    ".pptx"
+    ".pptx",
+    ".xlsx"
 }
 
 

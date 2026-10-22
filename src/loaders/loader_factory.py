@@ -3,6 +3,7 @@ from pathlib import Path
 from loaders.pdf_loader import extract_text as pdf_extract
 from loaders.docx_loader import extract_text as docx_extract
 from loaders.pptx_loader import extract_text as pptx_extract
+from loaders.xlsx_loader import extract_text as xlsx_extract
 
 
 def extract_text(file_path):
@@ -17,6 +18,9 @@ def extract_text(file_path):
 
     elif extension == ".pptx":
         return pptx_extract(file_path)
+
+    elif extension == ".xlsx":
+        return xlsx_extract(file_path)
 
     else:
         raise ValueError(

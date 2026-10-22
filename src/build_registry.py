@@ -17,6 +17,7 @@ SUPPORTED_EXTENSIONS = {
     ".pdf",
     ".docx",
     ".pptx",
+    ".xlsx",
 }
 
 

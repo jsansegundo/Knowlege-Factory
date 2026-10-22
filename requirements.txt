@@ -1,6 +1,7 @@
 faiss-cpu
 numpy
 openai
+openpyxl
 pypdf
 python-docx
 python-dotenv
