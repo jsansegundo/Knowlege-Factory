@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "knowledge-index"
+version = "0.1.0"
+description = "Indexado de documentos corporativos (PDF, DOCX, PPTX, XLSX) con embeddings de Azure OpenAI y FAISS"
+requires-python = ">=3.12"
+dependencies = [
+    "faiss-cpu",
+    "numpy",
+    "openai",
+    "openpyxl",
+    "pypdf",
+    "python-docx",
+    "python-dotenv",
+    "python-pptx",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["loaders", "models"]
+py-modules = [
+    "ask",
+    "build_knowledge_index",
+    "build_registry",
+    "chat",
+    "chunker",
+    "classify_corpus",
+    "generate_embeddings",
+    "index_documents",
+    "index_documents_v2",
+    "ingest",
+    "knowledge_chat",
+    "openai_client",
+    "registry",
+]
